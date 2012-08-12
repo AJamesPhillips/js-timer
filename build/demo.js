@@ -239,6 +239,22 @@
     return document.getElementById('results').innerHTML = resultsString;
   };
 
+  /*
+  Now test the array constructors
+  Using "v1", "best" and "v3" (as of commit #9069634) gave the 
+  following times (in milliseconds) for preparing the array and using them:
+                                  v1    16                      41
+                                  best  10                      41
+                                  v3    11                      138
+  
+  Run 1000 times for an array of 1000x1000
+  Google Chrome 21.0.1180.75 (Official Build 150248)
+  OS  Mac OS X
+  WebKit  537.1 (@124502)
+  JavaScript  V8 3.11.10.17
+  */
+
+
   params = [
     [
       {
