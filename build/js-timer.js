@@ -35,7 +35,7 @@
       }
       this.activities[activityId][runNumber].end = new Date;
       this.activities[activityId][runNumber].total = this.activities[activityId][runNumber].end - this.activities[activityId][runNumber].start;
-      return console.log("Activity " + activityId + ", run number " + runNumber + " took " + (this.activities[activityId][runNumber].total(milli(seconds))));
+      return console.log("Activity " + activityId + ", run number " + runNumber + " took " + this.activities[activityId][runNumber].total + " milli seconds");
     };
 
     Timer.prototype.results = function() {
@@ -53,6 +53,17 @@
         console.log("Activity " + activityId + " averaged " + average[activityId]);
       }
       return average;
+    };
+
+    Timer.prototype.formatedResults = function() {
+      var activityAverage, activityId, results, _ref;
+      results = "";
+      _ref = this.results();
+      for (activityId in _ref) {
+        activityAverage = _ref[activityId];
+        results += "Activity " + activityId + " averaged " + activityAverage + "ms<br>";
+      }
+      return results;
     };
 
     return Timer;

@@ -18,7 +18,7 @@ root.Timer = class Timer
   stop: (activityId = (@nextActivityId-1), runNumber = (@activities[activityId].length - 1)) ->
     @activities[activityId][runNumber].end = new Date
     @activities[activityId][runNumber].total = @activities[activityId][runNumber].end - @activities[activityId][runNumber].start
-    console.log "Activity #{activityId}, run number #{runNumber} took #{@activities[activityId][runNumber].total milli seconds}"
+    console.log "Activity #{activityId}, run number #{runNumber} took #{@activities[activityId][runNumber].total} milli seconds"
 
 
   results: ->
@@ -32,9 +32,11 @@ root.Timer = class Timer
       console.log "Activity #{activityId} averaged #{average[activityId]}"
     return average
 
-   
-    
-
+  formatedResults: ->
+    results = ""
+    for activityId, activityAverage of @results()
+      results += "Activity #{activityId} averaged #{activityAverage}ms<br>"
+    return results
 
 
 
