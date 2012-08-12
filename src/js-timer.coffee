@@ -10,32 +10,37 @@ root.Timer = class Timer
     @activities = {}
     @nextActivityId = 0
 
-  start: (activityId = @nextActivityId++) ->
+  start: (activityId = @nextActivityId++, 
+          activityDescription = "activityDescription not given", 
+          runDescription = "run #{if @activities[activityId]? then @activities[activityId].length else 0}") ->
     @activities[activityId] ||= []
-    @activities[activityId].push {start: new Date}
+    @activities[activityId].activityDescription = activityDescription
+    @activities[activityId].push {start: new Date, runDescription: runDescription}
     return activityId
 
-  stop: (activityId = (@nextActivityId-1), runNumber = (@activities[activityId].length - 1)) ->
+  stop: (activityId = (@nextActivityId-1), runNumber = (@activities[activityId].length-1)) ->
     @activities[activityId][runNumber].end = new Date
     @activities[activityId][runNumber].total = @activities[activityId][runNumber].end - @activities[activityId][runNumber].start
     console.log "Activity #{activityId}, run number #{runNumber} took #{@activities[activityId][runNumber].total} milli seconds"
 
 
   results: ->
-    average = {}
+    results = {}
     console.log "averaging"
     #average all
     for activityId, runs of @activities
       for run in runs
         total = run.total
-      average[activityId] = total / activityId.length
-      console.log "Activity #{activityId} averaged #{average[activityId]}"
-    return average
+      results[activityId] = 
+        average: total / activityId.length
+        activityDescription: runs.activityDescription
+      console.log "Activity #{activityId} \"#{runs.activityDescription}\" averaged #{results[activityId].average}"
+    return results
 
   formatedResults: ->
     results = ""
     for activityId, activityAverage of @results()
-      results += "Activity #{activityId} averaged #{activityAverage}ms<br>"
+      results += "Activity #{activityId} \"#{activityAverage.activityDescription}\" averaged #{activityAverage.average}ms<br>"
     return results
 
 

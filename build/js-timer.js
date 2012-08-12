@@ -14,14 +14,22 @@
       this.nextActivityId = 0;
     }
 
-    Timer.prototype.start = function(activityId) {
+    Timer.prototype.start = function(activityId, activityDescription, runDescription) {
       var _base;
       if (activityId == null) {
         activityId = this.nextActivityId++;
       }
+      if (activityDescription == null) {
+        activityDescription = "activityDescription not given";
+      }
+      if (runDescription == null) {
+        runDescription = "run " + (this.activities[activityId] != null ? this.activities[activityId].length : 0);
+      }
       (_base = this.activities)[activityId] || (_base[activityId] = []);
+      this.activities[activityId].activityDescription = activityDescription;
       this.activities[activityId].push({
-        start: new Date
+        start: new Date,
+        runDescription: runDescription
       });
       return activityId;
     };
@@ -39,8 +47,8 @@
     };
 
     Timer.prototype.results = function() {
-      var activityId, average, run, runs, total, _i, _len, _ref;
-      average = {};
+      var activityId, results, run, runs, total, _i, _len, _ref;
+      results = {};
       console.log("averaging");
       _ref = this.activities;
       for (activityId in _ref) {
@@ -49,10 +57,13 @@
           run = runs[_i];
           total = run.total;
         }
-        average[activityId] = total / activityId.length;
-        console.log("Activity " + activityId + " averaged " + average[activityId]);
+        results[activityId] = {
+          average: total / activityId.length,
+          activityDescription: runs.activityDescription
+        };
+        console.log("Activity " + activityId + " \"" + runs.activityDescription + "\" averaged " + results[activityId].average);
       }
-      return average;
+      return results;
     };
 
     Timer.prototype.formatedResults = function() {
@@ -61,7 +72,7 @@
       _ref = this.results();
       for (activityId in _ref) {
         activityAverage = _ref[activityId];
-        results += "Activity " + activityId + " averaged " + activityAverage + "ms<br>";
+        results += "Activity " + activityId + " \"" + activityAverage.activityDescription + "\" averaged " + activityAverage.average + "ms<br>";
       }
       return results;
     };

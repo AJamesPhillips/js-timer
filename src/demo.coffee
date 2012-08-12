@@ -23,18 +23,17 @@ make2Narray_v3 = (sizeX, sizeY) ->
     array2N.push makeArray_v3 sizeY
   return array2N
 
-prepareArrays = (type, arrayDimensions = [{x:10,y:10},{x:1000,y:1000},{x:100,y:100}], repeats = 100) ->
+prepareArrays = (type, arrayDimensions = [{x:10,y:10},{x:1000,y:1000},{x:100,y:100}], repeats = 10) ->
   timer = new root.Timer
   for arraySpec, i in arrayDimensions
         for x in [0...repeats]
-          timer.start(i)
+          timer.start(i, "Create #{arraySpec.x}x#{arraySpec.y} array using make2Narray_<b>#{type}</b>")
           switch type
             when "v1" then make2Narray_v1 arraySpec.x, arraySpec.y
             when "v2" then make2Narray_v2 arraySpec.x, arraySpec.y
             when "v3" then make2Narray_v3 arraySpec.x, arraySpec.y
           timer.stop(i)
   return timer
-
 
 
 outputResults = (resultsString) ->

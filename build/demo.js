@@ -62,13 +62,13 @@
       ];
     }
     if (repeats == null) {
-      repeats = 100;
+      repeats = 10;
     }
     timer = new root.Timer;
     for (i = _i = 0, _len = arrayDimensions.length; _i < _len; i = ++_i) {
       arraySpec = arrayDimensions[i];
       for (x = _j = 0; 0 <= repeats ? _j < repeats : _j > repeats; x = 0 <= repeats ? ++_j : --_j) {
-        timer.start(i);
+        timer.start(i, "Create " + arraySpec.x + "x" + arraySpec.y + " array using make2Narray_<b>" + type + "</b>");
         switch (type) {
           case "v1":
             make2Narray_v1(arraySpec.x, arraySpec.y);
