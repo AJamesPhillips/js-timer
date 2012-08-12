@@ -19,8 +19,8 @@ makeArray_v3 = (size) ->
 make2Narray_v3 = (sizeX, sizeY) ->
   array2N = []
   array2N[sizeX-1] = 0
-  for v in array2N
-    array2N.push makeArray_v3 sizeY
+  for x, i in array2N
+    array2N[i] = makeArray_v3 sizeY
   return array2N
 
 prepareArrays = (type, arrayDimensions = [{x:10,y:10},{x:1000,y:1000},{x:100,y:100}], repeats = 10) ->

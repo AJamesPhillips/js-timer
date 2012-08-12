@@ -35,12 +35,12 @@
   };
 
   make2Narray_v3 = function(sizeX, sizeY) {
-    var array2N, v, _i, _len;
+    var array2N, i, x, _i, _len;
     array2N = [];
     array2N[sizeX - 1] = 0;
-    for (_i = 0, _len = array2N.length; _i < _len; _i++) {
-      v = array2N[_i];
-      array2N.push(makeArray_v3(sizeY));
+    for (i = _i = 0, _len = array2N.length; _i < _len; i = ++_i) {
+      x = array2N[i];
+      array2N[i] = makeArray_v3(sizeY);
     }
     return array2N;
   };
