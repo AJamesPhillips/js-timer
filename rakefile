@@ -1,0 +1,20 @@
+#!usr/bin/env rake
+
+namespace :js_timer do
+  desc "Compiles source coffeescript"
+  task :build do
+    puts "Compiling source coffeescript"
+    sh 'coffee -o build/ -cl src/'
+  end
+
+  desc "Sets coffee to watch for changes and re-compile source coffeescript"
+  task :continuous_build do
+    puts "Continuously compiling source coffeescript"
+    sh 'coffee -o build/ -cwl src/'
+  end
+
+  desc "clear out of the build folder"
+  task :clean do
+    sh 'rm -rf build/*'
+  end
+end
