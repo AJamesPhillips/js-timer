@@ -41,7 +41,7 @@ make2Narray_v3 = (sizeX, sizeY) ->
 
 make2Narray_v4 = (sizeX, sizeY) ->
   array2N = []
-  while array2N.length < sizeX 
+  while array2N.length < sizeX
     array2N.push makeArray_v3 sizeY
   return array2N
 
@@ -61,7 +61,7 @@ makeArray = makeArray_v1c = (size) ->
 
 make2Narray = make2Narray_v4b = (sizeX, sizeY) ->
   array2N = []
-  while array2N.length < sizeX 
+  while array2N.length < sizeX
     array2N.push makeArray_v1c sizeY
   return array2N
 
@@ -69,17 +69,17 @@ make2Narray = make2Narray_v4b = (sizeX, sizeY) ->
 prepareArrays = (type, arrayDimensions = [{x:10,y:10},{x:1000,y:1000},{x:100,y:100}], repeats = 10) ->
   timer = new root.Timer
   for arraySpec, i in arrayDimensions
-        for x in [0...repeats]
-          timer.start(i, "Create #{arraySpec.x}x#{arraySpec.y} array using make2Narray_<b>#{type}</b>")
-          switch type
-            when "v1" then make2Narray_v1 arraySpec.x, arraySpec.y
-            when "v1b" then make2Narray_v1b arraySpec.x, arraySpec.y
-            when "v2" then make2Narray_v2 arraySpec.x, arraySpec.y
-            when "v3" then make2Narray_v3 arraySpec.x, arraySpec.y
-            when "v4" then make2Narray_v4 arraySpec.x, arraySpec.y
-            when "v5" then make2Narray_v5 arraySpec.x, arraySpec.y
-            when "best" then make2Narray arraySpec.x, arraySpec.y
-          timer.stop(i)
+    for x in [0...repeats]
+      timer.start(i, "Create #{arraySpec.x}x#{arraySpec.y} array using make2Narray_<b>#{type}</b>")
+      switch type
+        when "v1" then make2Narray_v1 arraySpec.x, arraySpec.y
+        when "v1b" then make2Narray_v1b arraySpec.x, arraySpec.y
+        when "v2" then make2Narray_v2 arraySpec.x, arraySpec.y
+        when "v3" then make2Narray_v3 arraySpec.x, arraySpec.y
+        when "v4" then make2Narray_v4 arraySpec.x, arraySpec.y
+        when "v5" then make2Narray_v5 arraySpec.x, arraySpec.y
+        when "best" then make2Narray arraySpec.x, arraySpec.y
+      timer.stop(i)
   return timer
 
 
@@ -100,19 +100,19 @@ write1sTo2NArray = (array2N) ->
 useArrays = (type, arrayDimensions = [{x:10,y:10},{x:1000,y:1000},{x:100,y:100}], repeats = 10) ->
   timer = new root.Timer
   for arraySpec, i in arrayDimensions
-        for x in [0...repeats]
-          array = []
-          switch type
-            when "v1" then array = make2Narray_v1 arraySpec.x, arraySpec.y
-            when "v1b" then array = make2Narray_v1b arraySpec.x, arraySpec.y
-            when "v2" then array = make2Narray_v2 arraySpec.x, arraySpec.y
-            when "v3" then array = make2Narray_v3 arraySpec.x, arraySpec.y
-            when "v4" then array = make2Narray_v4 arraySpec.x, arraySpec.y
-            when "v5" then array = make2Narray_v5 arraySpec.x, arraySpec.y
-            when "best" then array = make2Narray arraySpec.x, arraySpec.y
-          timer.start(i, "Populate #{arraySpec.x}x#{arraySpec.y} array created using make2Narray_<b>#{type}</b> with 1s")
-          write1sTo2NArray array
-          timer.stop(i)
+    for x in [0...repeats]
+      array = []
+      switch type
+        when "v1" then array = make2Narray_v1 arraySpec.x, arraySpec.y
+        when "v1b" then array = make2Narray_v1b arraySpec.x, arraySpec.y
+        when "v2" then array = make2Narray_v2 arraySpec.x, arraySpec.y
+        when "v3" then array = make2Narray_v3 arraySpec.x, arraySpec.y
+        when "v4" then array = make2Narray_v4 arraySpec.x, arraySpec.y
+        when "v5" then array = make2Narray_v5 arraySpec.x, arraySpec.y
+        when "best" then array = make2Narray arraySpec.x, arraySpec.y
+      timer.start(i, "Populate #{arraySpec.x}x#{arraySpec.y} array created using make2Narray_<b>#{type}</b> with 1s")
+      write1sTo2NArray array
+      timer.stop(i)
   return timer
 
 
@@ -122,7 +122,7 @@ outputResults = (resultsString) ->
 
 ###
 Now test the array constructors
-Using "v1", "best" and "v3" (as of commit #9069634) gave the 
+Using "v1", "best" and "v3" (as of commit #9069634) gave the
 following times (in milliseconds) for preparing the array and using them:
                                 v1    16                      41
                                 best  10                      41
@@ -137,7 +137,7 @@ JavaScript  V8 3.11.10.17
 ###
 
 
-params = [[{x:3,y:3},{x:1000,y:1000}], 1000]
+params = [[{x:3,y:3},{x:1000,y:1000}], 100]
 results = ""
 types = ["v1", "best", "v3"]
 timerTotal = new Timer
@@ -156,7 +156,7 @@ for type, i in types
   results += "<h3>For useArrays made with make2Narray_<b>#{type}</b> </h3>#{timer.formatedResults()}<br>"
 
 
- 
+
 timerTotal.stop()
 results += "<br><br><h3>#{timerTotal.formatedResults()}</h3>"
 outputResults results

@@ -13,3 +13,8 @@ timer.end();
 
 timer.time;  // =>  {milliseconds: N}
 ```
+
+
+# To run the Demo
+Run `rake js_timer:build`
+Navigate to file://localhost/<path to repo>/js-timer/demo/demo.html
